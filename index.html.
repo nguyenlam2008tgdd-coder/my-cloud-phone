@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Cloud Phone</title>
+  <style>
+    body {
+      margin: 0;
+      background: #101522;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px 18px;
+    }
+    .card {
+      max-width: 400px;
+      margin: 30px auto;
+      padding: 24px;
+      background: #202a3c;
+      border-radius: 18px;
+    }
+    button {
+      padding: 14px 24px;
+      border: 0;
+      border-radius: 10px;
+      background: #42d392;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    #status { margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>☁️ My Cloud Phone</h1>
+  <p>Cloud Phone miễn phí của bạn</p>
+  <div class="card">
+    <h2>Android Cloud</h2>
+    <p id="status">Chưa có phiên cloud</p>
+    <button onclick="startCloud()">Tạo Cloud</button>
+    <p id="timer"></p>
+    <button onclick="stopCloud()" style="background:#ff647c">
+      Dừng Cloud
+    </button>
+  </div>
+  <p>Đây là bản giao diện thử nghiệm.</p>
+  <script>
+    let endTime, interval;
+    function startCloud() {
+      clearInterval(interval);
+      endTime = Date.now() + 2 * 60 * 60 * 1000;
+      document.getElementById('status').textContent =
+        'Demo đang chạy — chưa có máy Android thật';
+      interval = setInterval(() => {
+        const left = endTime - Date.now();
+        if (left <= 0) {
+          stopCloud();
+          return;
+        }
+        const h = Math.floor(left / 3600000);
+        const m = Math.floor(left % 3600000 / 60000);
+        const s = Math.floor(left % 60000 / 1000);
+        document.getElementById('timer').textContent =
+          `Thời gian demo: ${h}h ${m}m ${s}s`;
+      }, 1000);
+    }
+    function stopCloud() {
+      clearInterval(interval);
+      document.getElementById('status').textContent = 'Đã dừng demo';
+      document.getElementById('timer').textContent = '';
+    }
+  </script>
+</body>
+</html>
